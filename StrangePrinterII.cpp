@@ -3,7 +3,7 @@
 #include<algorithm>
 #include<tuple>
 #include<string_view>
-#include<set>
+#include<unordered_set>
 #include"my_assert.h"
 
 
@@ -47,7 +47,7 @@ public:
                 }
                 continue;
             }
-            std::set<int> underlying_colors;
+            std::unordered_set<int> underlying_colors;
             ret = isSolid(targetGrid, GetBounds(targetGrid, *it), underlying_colors);
             i = 0;
         }
@@ -77,7 +77,7 @@ private:
         return bounds;
     }
 
-    bool isSolid(std::vector<std::vector<int>>& t, GridBounds grid, std::set<int>& underlying_colors) {
+    bool isSolid(std::vector<std::vector<int>>& t, GridBounds grid, std::unordered_set<int>& underlying_colors) {
         int this_color = grid.color;
         for (int y = grid.upper; y <= grid.lower; ++y) {
             for (int x = grid.left; x <= grid.right; ++x) {
