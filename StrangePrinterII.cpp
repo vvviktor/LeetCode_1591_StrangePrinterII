@@ -4,15 +4,7 @@
 #include<tuple>
 #include<string_view>
 #include<unordered_set>
-#include"my_assert.h"
-
-
-
-//std::ostream& operator<<(std::ostream& out, const GridBounds& bounds) {
-//    using namespace std::literals;
-//    out << '{' << bounds.left << ", "sv << bounds.right << ", "sv << bounds.upper << ", "sv << bounds.lower << '}';
-//    return out;
-//}
+#include "my_assert.h"
 
 class Solution {
     struct GridBounds {
@@ -21,19 +13,12 @@ class Solution {
         int upper = -1;
         int lower = -1;
         int color = -1;
-
-        bool operator==(const GridBounds& rhs) const {
-            return std::tie(left, right, upper, lower) == std::tie(rhs.left, rhs.right, rhs.upper, rhs.lower);
-        }
-
-        bool operator !=(const GridBounds& rhs) const {
-            return !(*this == rhs);
-        }
     };
 
 public:
     bool isPrintable(std::vector<std::vector<int>>& targetGrid) {
         bool ret = true;
+        std::unordered_set<int> underlying_colors;
         for (int i = 0; i < targetGrid.size(); ++i) {
             if (ret == false) {
                 return false;
@@ -47,7 +32,6 @@ public:
                 }
                 continue;
             }
-            std::unordered_set<int> underlying_colors;
             ret = isSolid(targetGrid, GetBounds(targetGrid, *it), underlying_colors);
             i = 0;
         }
@@ -111,49 +95,6 @@ private:
     }
 };
 
-//void GetBoundsTest() {
-//    using namespace std::literals;
-//    std::vector<std::vector<int>> t{{1, 1, 1, 1},
-//                                    {2, 2, 1, 1},
-//                                    {2, 4, 4, 3},
-//                                    {3, 4, 5, 5},
-//                                    {3, 3, 5, 5}};
-//    Solution s;
-//    GridBounds bounds_1 = s.GetBounds(t, 1);
-//    GridBounds bounds_2 = s.GetBounds(t, 2);
-//    GridBounds bounds_3 = s.GetBounds(t, 3);
-//    GridBounds bounds_4 = s.GetBounds(t, 4);
-//    GridBounds bounds_5 = s.GetBounds(t, 5);
-//    GridBounds estimate_1 = {0, 3, 0, 1};
-//    GridBounds estimate_2 = {0, 1, 1, 2};
-//    GridBounds estimate_3 = {0, 3, 2, 4};
-//    GridBounds estimate_4 = {1, 2, 2, 3};
-//    GridBounds estimate_5 = {2, 3, 3, 4};
-//    ASSERT_EQUAL(bounds_1, estimate_1);
-//    ASSERT_EQUAL(bounds_2, estimate_2);
-//    ASSERT_EQUAL(bounds_3, estimate_3);
-//    ASSERT_EQUAL(bounds_4, estimate_4);
-//    ASSERT_EQUAL(bounds_5, estimate_5);
-//}
-//
-//void IsSolidTest() {
-//    using namespace std::literals;
-//    std::vector<std::vector<int>> t{{1, 1, 1, 1},
-//                                    {2, 2, 1, 1},
-//                                    {2, 4, 4, 3},
-//                                    {3, 4, 5, 5},
-//                                    {3, 3, 5, 5}};
-//    Solution s;
-//    std::set<int> colors{};
-//    ASSERT(s.isSolid(t, s.GetBounds(t, 1), colors));
-//    std::vector<std::vector<int>> estimate = {{-1, -1, -1, -1},
-//                                              {-1, -1, -1, -1},
-//                                              {-1, -1, -1, 3},
-//                                              {3, -1, -1, -1},
-//                                              {3, 3, -1, -1}};
-//    ASSERT(t == estimate);
-//}
-//
 void IsPrintableTest() {
     using namespace std::literals;
     {
