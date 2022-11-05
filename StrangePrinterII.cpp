@@ -1,5 +1,6 @@
 ﻿#include<iostream>
 #include<vector>
+#include<string>
 #include<algorithm>
 #include<string_view>
 #include<unordered_set>
@@ -122,6 +123,7 @@ void IsPrintableTest() {
         Solution s;
         ASSERT(s.isPrintable(t));
     }
+    std::cout << "Test OK"s << std::endl;
 }
 
 int main() {
